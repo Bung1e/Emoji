@@ -13,7 +13,6 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
 import threading
 
-
 def exit_application():
     root.destroy()
 
@@ -40,7 +39,7 @@ cv2.ocl.setUseOpenCL(False)
 
 emotion_dict = {0: "   Angry   ", 1: "Disgusted", 2: "  Fearful  ", 3: "   Happy   ", 4: "  Neutral  ", 5: "    Sad    ", 6: "Surprised"}
 
-emoji_dist={0:"D:/VS Projects/Emojis/face_detection/emojis/angry.png",2:"D:/VS Projects/Emojis/face_detection/emojis/disgusted.png",2:"D:/VS Projects/Emojis/face_detection/emojis/fearful.png",3:"D:/VS Projects/Emojis/face_detection/emojis/happy.png",4:"D:/VS Projects/Emojis/face_detection/emojis/neutral.png",5:"D:/VS Projects/Emojis/face_detection/emojis/sad.png",6:"D:/VS Projects/Emojis/face_detection/emojis/surpriced.png"}
+emoji_dist={0:"D:/VS Projects/Emojis/face_detection/emojis/angry1.png",2:"D:/VS Projects/Emojis/face_detection/emojis/disgusted.png",2:"D:/VS Projects/Emojis/face_detection/emojis/fearful1.png",3:"D:/VS Projects/Emojis/face_detection/emojis/happy1.png",4:"D:/VS Projects/Emojis/face_detection/emojis/neutral1.png",5:"D:/VS Projects/Emojis/face_detection/emojis/sad1.png",6:"D:/VS Projects/Emojis/face_detection/emojis/surpriced1.png"}
 
 global last_frame1                                    
 last_frame1 = np.zeros((480, 640, 3), dtype=np.uint8)
@@ -52,7 +51,7 @@ def show_vid():
     cap1 = cv2.VideoCapture(0)                                 
     if not cap1.isOpened():                             
         print("Can't open the camera1")
-        return  # Exit the function if the camera can't be opened
+        return 
 
     global last_frame1
     while True:
@@ -64,7 +63,7 @@ def show_vid():
         num_faces = bounding_box.detectMultiScale(gray_frame, scaleFactor=1.3, minNeighbors=5)
 
         for (x, y, w, h) in num_faces:
-            cv2.rectangle(frame1, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            cv2.rectangle(frame1, (x, y-50), (x+w, y+h+10), (255, 0, 0), 2)
             roi_gray_frame = gray_frame[y:y + h, x:x + w]
             cropped_img = np.expand_dims(np.expand_dims(cv2.resize(roi_gray_frame, (48, 48)), -1), 0)
             prediction = emotion_model.predict(cropped_img)
@@ -88,13 +87,12 @@ def show_vid():
 def show_vid2():
     frame2=cv2.imread(emoji_dist[show_text[0]])
     pic2=cv2.cvtColor(frame2,cv2.COLOR_BGR2RGB)
-    img2=Image.fromarray(frame2)
+    img2=Image.fromarray(pic2)
     imgtk2=ImageTk.PhotoImage(image=img2)
     lmain2.imgtk2=imgtk2
     lmain3.configure(text=emotion_dict[show_text[0]],font=('arial',45,'bold'))
     
     lmain2.configure(image=imgtk2)
-    # root.update()
     lmain2.after(10, show_vid2)
 
 if __name__ == '__main__':
