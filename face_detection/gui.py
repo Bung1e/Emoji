@@ -38,14 +38,11 @@ emotion_model.load_weights('D:/VS Projects/Emojis/model.h5')
 cv2.ocl.setUseOpenCL(False)
 
 emotion_dict = {0: "   Angry   ", 1: "Disgusted", 2: "  Fearful  ", 3: "   Happy   ", 4: "  Neutral  ", 5: "    Sad    ", 6: "Surprised"}
-
 emoji_dist={0:"D:/VS Projects/Emojis/face_detection/emojis/angry1.png",2:"D:/VS Projects/Emojis/face_detection/emojis/disgusted.png",2:"D:/VS Projects/Emojis/face_detection/emojis/fearful1.png",3:"D:/VS Projects/Emojis/face_detection/emojis/happy1.png",4:"D:/VS Projects/Emojis/face_detection/emojis/neutral1.png",5:"D:/VS Projects/Emojis/face_detection/emojis/sad1.png",6:"D:/VS Projects/Emojis/face_detection/emojis/surpriced1.png"}
-
 global last_frame1                                    
 last_frame1 = np.zeros((480, 640, 3), dtype=np.uint8)
 global cap1
 show_text=[0]
-
 
 def show_vid():      
     cap1 = cv2.VideoCapture(0)                                 
@@ -108,8 +105,7 @@ if __name__ == '__main__':
     lmain3.place(x=960,y=250)
     lmain2.pack(side=RIGHT)
     lmain2.place(x=900,y=350)
-
-    root.title("Photo To Emoji")            
+           
     root.geometry("1400x900+100+10") 
     root['bg']='black'
     exit_button = Button(root, text='Quit', fg="red", command=exit_application, font=('arial', 25, 'bold'))
