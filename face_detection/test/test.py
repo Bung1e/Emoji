@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-
+import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D
@@ -26,6 +26,7 @@ validation_generator = val_datagen.flow_from_directory(
         batch_size=64,
         color_mode="grayscale",
         class_mode='categorical')
+
 HDF5_USE_FILE_LOCKING='FALSE'
 emotion_model = Sequential()
 emotion_model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(48,48,1)))
@@ -49,9 +50,27 @@ emotion_model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_r
 emotion_model_info = emotion_model.fit_generator(
         train_generator,
         steps_per_epoch=28709 // 64,
-        epochs=50,
+        epochs=15,
         validation_data=validation_generator,
         validation_steps=7178 // 64)
+
+history = emotion_model_info.history
+
+plt.plot(history['accuracy'], label='Training Accuracy')
+plt.plot(history['val_accuracy'], label='Validation Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+plt.legend()
+plt.show()
+
+plt.plot(history['loss'], label='Training Loss')
+plt.plot(history['val_loss'], label='Validation Loss')
+plt.title('Training and Validation Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
 
 emotion_model.save_weights('model.h5')
 
@@ -80,4 +99,3 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 cap.release()
-

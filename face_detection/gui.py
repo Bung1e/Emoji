@@ -33,7 +33,7 @@ emotion_model.add(Flatten())
 emotion_model.add(Dense(1024, activation='relu'))
 emotion_model.add(Dropout(0.5))
 emotion_model.add(Dense(7, activation='softmax'))
-emotion_model.load_weights('D:/VS Projects/Emojis/model.h5')
+emotion_model.load_weights('D:\VS Projects\Emojis/model.h5')
 
 cv2.ocl.setUseOpenCL(False)
 
@@ -113,3 +113,4 @@ if __name__ == '__main__':
     threading.Thread(target=show_vid).start()
     threading.Thread(target=show_vid2).start()
     root.mainloop()
+    
