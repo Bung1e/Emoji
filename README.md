@@ -1,7 +1,5 @@
+Face Recognition
 
-```markdown
-# Face Recognition
-```
 Face Recognition is a project aimed at recognizing facial expressions using machine learning models. The project includes data preprocessing, model training, evaluation, and visualization.
 
 ## Installation
